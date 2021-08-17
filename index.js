@@ -79,6 +79,10 @@ async function work() {
 
   //Store each reply in DB
   const replies = await getTweetResponses();
+  if(!replies){
+    console.error("Twitter, no replies");
+    return;
+  }
   console.log("Replies length", Object.keys(replies).length);
   replies.map(function (reply) {
     //Add reply to DB if does not exist
