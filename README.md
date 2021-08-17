@@ -14,7 +14,7 @@ Brought to you by RavenRebels https://github.com/ravenrebels
 
 ## Register as developer over at Twitter
 
-Register as developer at https://developer.twitter.com/\
+Register as developer at https://developer.twitter.com/ \
 It takes some time to be approved
 
 ## Setup a Ravencoin full node
