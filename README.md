@@ -6,6 +6,8 @@ Purely for educational purposes.
 
 Brought to you by RavenRebels https://github.com/ravenrebels
 
+Getting started video: https://www.youtube.com/watch?v=DZMrnjVQQzs
+
 ## Getting started summary
 - register a developer account over at Twitter
 - Setup a full Ravencoin node
