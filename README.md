@@ -60,18 +60,24 @@ Create a file called CONFIG.json.\
 Example
 ```
 {
+  "bearer": "FAKE_FAKE_AAAAAasdfasdfyMSAEAAAAABQasdfasdfeIasdfasdfDincauODaKCasdfasdffXkA3001KLcQUps02bAeasdfasdf4g",
   "interval": 20,
   "rpcUsername": "myVerySecretUsername",
   "rpcPassword": "myMegaSecretPassword",
   "rpcURL": "http://127.0.0.1:8766",
-  "tweetId": "1111222233334444", 
   "RAVENCOIN_ASSET_NAME": "HOPIUM",
-  "bearer": "AAAAAasdfasdfyMSAEAAAAABQasdfasdfeIasdfasdfDincauODaKCasdfasdffXkA3001KLcQUps02bAeasdfasdf4g"
+  "scanMinutesBackInTime": 5,
+  "tweetId": "1111222233334444"
 }
 ```
+- **scanMinutesBackInTime** dictates how far back in time (history) in minutes Twitter should give us replies. 10 means give us all replies for the last 10 minutes. Try to keep this low because Twitter has a cap limit, how many tweets you can read.
 - **interval** dictates how often (seconds) you want to check for new replies over at Twitter.
 - **bearer** is your Twitter project/apps Bearer token
 
+NOTE: we ask twitter every **interval** seconds to give us all the tweet/replies for the last **scanMinutesBackInTime** minutes.
+This affects your quota, performance cap over at Twitter.
+Twitter has a limit for about 500.000 reads per month.
+Try to keep **scanMinutesBackInTime** low.
 
 ## Start
 - Your Ravencoin node should be up and running
