@@ -124,7 +124,7 @@ async function work() {
       const asdf = await rpc("validateaddress", [text]);
       if (asdf.isvalid === true) {
         try {
-          console.log("Found valid Ravencoin address in tweet", text, reply.id);
+          console.info("Found valid Ravencoin address in tweet", text, reply.id);
           const asset = CONFIG.RAVENCOIN_ASSET_NAME;
           const quantity = 1;
           const toAddress = text;
