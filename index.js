@@ -9,6 +9,12 @@ const fs = require("fs");
 
 const CONFIG = require("./CONFIG.json");
 
+
+//Set title 
+try{
+  process.title = CONFIG.RAVENCOIN_ASSET_NAME + ": Ravencoin Twitter bot";
+}
+catch(e){}
 //HEALTHCHECK
 if (!CONFIG.RAVENCOIN_ASSET_NAME) {
   console.error("CONFIG.json does not contain RAVENCOIN_ASSET_NAME");
@@ -29,11 +35,16 @@ async function getTweetResponses() {
   //NOTE: we ask for replies for the last 60 minutes
   //Twitter has a limit on 100 replies so 60 min should do
   //Change that how you like
-  
-  let oneHourBefore = new Date();
-  oneHourBefore.setHours(oneHourBefore.getHours() - 1);
-  const dateString = oneHourBefore.toISOString();
-  console.log("Loading tweet replies from", oneHourBefore);
+
+  let before = new Date();
+  const beforeMinutes = CONFIG.scanMinutesBackInTime || 30;
+  before.setMinutes(before.getMinutes() - beforeMinutes); //Scan replies from the last X minutes
+  const dateString = before.toISOString();
+  console.log(
+    CONFIG.RAVENCOIN_ASSET_NAME,
+    "Loading tweet replies from",
+    before
+  );
   const URL =
     "https://api.twitter.com/2/tweets/search/recent?" +
     `query=conversation_id:${conversationId}` +
@@ -79,11 +90,15 @@ async function work() {
 
   //Store each reply in DB
   const replies = await getTweetResponses();
-  if(!replies){
-    console.error("Twitter, no replies");
+  if (!replies) {
+    console.log("No replies to process");
     return;
   }
-  console.log("Replies length", Object.keys(replies).length);
+  console.info(
+    CONFIG.RAVENCOIN_ASSET_NAME,
+    "Replies length",
+    Object.keys(replies).length
+  );
   replies.map(function (reply) {
     //Add reply to DB if does not exist
     if (!db[reply.id]) {
@@ -113,10 +128,14 @@ async function work() {
           const asset = CONFIG.RAVENCOIN_ASSET_NAME;
           const quantity = 1;
           const toAddress = text;
+          //Add IPFS to the video promo: The Sirens Are Calling, music by Ken Bauer
+          const theSirensAreCallingIPFS =
+            "QmR1CCWdz1YbLWUShjPc2sqnSiPS3913pqQRAC1E3Kj2rT";
           const transactionId = await rpc("transfer", [
             asset,
             quantity,
             toAddress,
+            theSirensAreCallingIPFS,
           ]);
           reply.RAVEN_transactionId = transactionId;
         } catch (e) {}
@@ -163,5 +182,5 @@ async function rpc(method, params) {
 }
 
 work();
- 
+
 setInterval(work, CONFIG.interval * 1000);
