@@ -140,6 +140,8 @@ async function work() {
               3. "to_address"  (string, required) address to send the asset to
               4. "message"     (string, optional) Once RIP5 is voted in ipfs hash or txid hash to send along with the transfer
 
+              For example, you could use argument 4 "message" to send a "Thank you, hope you like the asset/token" message as ipfs
+              
               Example ipfs hash for a Ravencoin promotion video
               QmR1CCWdz1YbLWUShjPc2sqnSiPS3913pqQRAC1E3Kj2rT
               
