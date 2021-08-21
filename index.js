@@ -36,12 +36,15 @@ async function getTweetResponses() {
 
   let before = new Date();
   const beforeMinutes = CONFIG.scanMinutesBackInTime || 30;
-  before.setMinutes(before.getMinutes() - beforeMinutes); //Scan replies from the last X minutes
+
+  //Convert minutes to seconds to handle super speed mode, for example is 0.1 minutes
+  const seconds = Math.floor(beforeMinutes * 60); 
+  before.setSeconds(before.getSeconds() - seconds); //Scan replies from the last X minutes
   const dateString = before.toISOString();
   console.log(
     CONFIG.RAVENCOIN_ASSET_NAME,
-    "Loading tweet replies from",
-    before
+    "Loading tweet replies between",
+    before, new Date()
   );
   const URL =
     "https://api.twitter.com/2/tweets/search/recent?" +
