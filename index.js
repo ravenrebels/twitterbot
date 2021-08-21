@@ -9,12 +9,10 @@ const fs = require("fs");
 
 const CONFIG = require("./CONFIG.json");
 
-
-//Set title 
-try{
+//Set title
+try {
   process.title = CONFIG.RAVENCOIN_ASSET_NAME + ": Ravencoin Twitter bot";
-}
-catch(e){}
+} catch (e) {}
 //HEALTHCHECK
 if (!CONFIG.RAVENCOIN_ASSET_NAME) {
   console.error("CONFIG.json does not contain RAVENCOIN_ASSET_NAME");
@@ -124,18 +122,35 @@ async function work() {
       const asdf = await rpc("validateaddress", [text]);
       if (asdf.isvalid === true) {
         try {
-          console.info("Found valid Ravencoin address in tweet", text, reply.id);
+          console.info(
+            "Found valid Ravencoin address in tweet",
+            text,
+            reply.id
+          );
           const asset = CONFIG.RAVENCOIN_ASSET_NAME;
           const quantity = 1;
           const toAddress = text;
-          //Add IPFS to the video promo: The Sirens Are Calling, music by Ken Bauer
-          const theSirensAreCallingIPFS =
-            "QmR1CCWdz1YbLWUShjPc2sqnSiPS3913pqQRAC1E3Kj2rT";
+
+          /*
+              ASSET TRANSFER
+              
+              Arguments:
+              1. "asset_name"  (string, required) name of asset
+              2. "qty"         (numeric, required) number of assets you want to send to the address
+              3. "to_address"  (string, required) address to send the asset to
+              4. "message"     (string, optional) Once RIP5 is voted in ipfs hash or txid hash to send along with the transfer
+
+              Example ipfs hash for a Ravencoin promotion video
+              QmR1CCWdz1YbLWUShjPc2sqnSiPS3913pqQRAC1E3Kj2rT
+              
+              https://ravencoinipfs-gateway.com/ipfs/QmR1CCWdz1YbLWUShjPc2sqnSiPS3913pqQRAC1E3Kj2rT
+
+          */
+
           const transactionId = await rpc("transfer", [
             asset,
             quantity,
             toAddress,
-            theSirensAreCallingIPFS,
           ]);
           reply.RAVEN_transactionId = transactionId;
         } catch (e) {}
