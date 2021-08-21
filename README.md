@@ -61,12 +61,13 @@ Example
 ```
 {
   "bearer": "FAKE_FAKE_AAAAAasdfasdfyMSAEAAAAABQasdfasdfeIasdfasdfDincauODaKCasdfasdffXkA3001KLcQUps02bAeasdfasdf4g",
-  "interval": 20,
+  "scanMinutesBackInTime": 0.5,
+  "interval": 5,
   "rpcUsername": "myVerySecretUsername",
   "rpcPassword": "myMegaSecretPassword",
   "rpcURL": "http://127.0.0.1:8766",
   "RAVENCOIN_ASSET_NAME": "HOPIUM",
-  "scanMinutesBackInTime": 5,
+  "scanMinutesBackInTime": 0.5,
   "tweetId": "1111222233334444"
 }
 ```
