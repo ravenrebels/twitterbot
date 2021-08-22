@@ -30,10 +30,7 @@ async function getTweetResponses() {
   //More info about Twitter API and conversation id
   //https://developer.twitter.com/en/docs/twitter-api/conversation-id
 
-  //NOTE: we ask for replies for the last 60 minutes
-  //Twitter has a limit on 100 replies so 60 min should do
-  //Change that how you like
-
+  //NOTE: we ask for replies for the last X minutes
   let before = new Date();
   const beforeMinutes = CONFIG.scanMinutesBackInTime || 30;
   before.setMinutes(before.getMinutes() - beforeMinutes); //Scan replies from the last X minutes
@@ -86,7 +83,7 @@ async function work() {
   }
   const db = require(DB_FILENAME);
 
-  //Store each reply in DB
+
   const replies = await getTweetResponses();
   if (!replies) {
     console.log("No replies to process");
@@ -97,6 +94,7 @@ async function work() {
     "Replies length",
     Object.keys(replies).length
   );
+  //Store each reply in DB
   replies.map(function (reply) {
     //Add reply to DB if does not exist
     if (!db[reply.id]) {
