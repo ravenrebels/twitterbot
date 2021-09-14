@@ -48,7 +48,7 @@ You need to have Node.js https://nodejs.org/en/ installed
 You need to have git installed
 
 To download the code run\
-`git clonse https://github.com/ravenrebels/twitterbot.git`
+`git clone https://github.com/ravenrebels/twitterbot.git`
 
 ## Install code dependencies
 
